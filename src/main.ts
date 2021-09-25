@@ -60,8 +60,7 @@ export class QingOverlay extends LitElement {
           display: open ? 'flex' : 'none',
         })}
         class=${overlayBackClass}
-        part=${overlayBackClass}
-      >
+        part=${overlayBackClass}>
         <div class=${overlayClass} part=${overlayClass}>
           <slot></slot>
         </div>
