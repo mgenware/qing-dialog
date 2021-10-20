@@ -29,24 +29,24 @@
     "dist/**/*.map"
   ],
   "peerDependencies": {
-    "lit": "^2.0.0-rc.2",
-    "qing-button": "^8.0.0"
+    "lit": "^2.0.0",
+    "qing-button": "^8.2.1"
   },
   "devDependencies": {
     "@types/mocha": "^8.2.3",
     "@types/node": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
-    "@web/dev-server": "^0.1.18",
-    "@web/test-runner": "^0.13.13",
-    "daizong": "^0.15.2",
+    "@web/dev-server": "^0.1.25",
+    "@web/test-runner": "^0.13.20",
+    "daizong": "^0.16.1",
     "eslint": "^7.30.0",
     "eslint-config-mgenware": "^0.2.0",
     "eslint-plugin-import": "^2.23.4",
-    "lit": "^2.0.0-rc.2",
+    "lit": "^2.0.0",
     "mgenware-tsconfig-wc": "^2.0.3",
     "mocha": "^9.0.2",
-    "qing-button": "^8.0.2",
+    "qing-button": "^8.2.1",
     "qing-t": "^5.0.1",
     "source-map-support": "^0.5.19",
     "typescript": "^4.3.5"
