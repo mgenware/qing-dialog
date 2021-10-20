@@ -113,8 +113,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
               <button @click=${this.handleLightBtnClick}>Light</button>
               <button @click=${this.handleDarkBtnClick}>Dark</button>
               <button
-                @click=${() => this.shadowRoot.getElementById('themes').removeAttribute('open')}
-              >
+                @click=${() => this.shadowRoot.getElementById('themes').removeAttribute('open')}>
                 Close
               </button>
             </p>
@@ -143,14 +142,12 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
           if (handler) {
             handler(e);
           }
-        }}
-      >
+        }}>
         ${content ?? html`<dynamic-content></dynamic-content>`}
         <p style="text-align:center">
           <button
             id=${btnID}
-            @click=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}
-          >
+            @click=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}>
             OK
           </button>
         </p>

@@ -7,9 +7,9 @@
     "build": "del-cli public && rollup -c && node ./post-public-build.js"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^17.1.0",
-    "@rollup/plugin-node-resolve": "^11.2.0",
-    "del-cli": "^3.0.1",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "del-cli": "^4.0.1",
     "m-fs": "^5.0.0",
     "rollup": "^2.40.0",
     "rollup-plugin-terser": "^7.0.2"
