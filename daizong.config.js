@@ -23,14 +23,14 @@ export default {
     envGroups: ['production'],
   },
 
-  // Deletes compiled files, auto triggered by `yarn r dev` or `yarn r build`.
+  // Deletes compiled files, auto triggered by `#dev` or `#build`.
   clean: {
     run: {
       del: ['dist', 'dist_tests'],
     },
   },
 
-  // Lints the project using ESLint, auto triggered by `yarn r build`.
+  // Lints the project using ESLint, auto triggered by `#build`.
   lint: {
     run: 'eslint --max-warnings 0 --ext .ts src/ tests/',
   },
