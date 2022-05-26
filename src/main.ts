@@ -9,7 +9,7 @@ const openProp = 'open';
 
 @customElement('qing-overlay')
 export class QingOverlay extends LitElement {
-  static get styles() {
+  static override get styles() {
     return css`
       :host {
         display: block;
@@ -48,11 +48,11 @@ export class QingOverlay extends LitElement {
 
   @property({ type: Boolean, reflect: true }) open = false;
 
-  firstUpdated() {
+  override firstUpdated() {
     document.addEventListener('keyup', this.handleKeyUp.bind(this));
   }
 
-  render() {
+  override render() {
     const { open } = this;
     return html`
       <div
@@ -68,7 +68,7 @@ export class QingOverlay extends LitElement {
     `;
   }
 
-  updated(changedProperties: Map<string, unknown>) {
+  override updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has(openProp)) {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!!changedProperties.get(openProp) !== this.open) {
