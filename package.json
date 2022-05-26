@@ -44,9 +44,9 @@
     "eslint-config-mgenware": "^0.8.0",
     "eslint-plugin-import": "^2.26.0",
     "lit": "^2.2.5",
-    "mgenware-tsconfig-wc": "^2.2.0",
+    "mgenware-tsconfig-browser": "^14.0.0",
     "mocha": "^10.0.0",
-    "qing-button": "^8.2.5",
+    "qing-button": "^8.2.6",
     "qing-t": "^6.1.0",
     "source-map-support": "^0.5.21",
     "typescript": "^4.7.2"

@@ -16,7 +16,7 @@ indexHTML = indexHTML.replace(
   `<script src="./${mainJS}"></script>`,
 );
 
-// INject `modern-normalize.css`.
+// Inject `modern-normalize.css`.
 indexHTML = indexHTML.replace(
   '</head>',
   '<link rel="stylesheet" href="./modern-normalize.css">\n</head>',
