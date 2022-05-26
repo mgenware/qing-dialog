@@ -1,8 +1,10 @@
 import { html, css, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 export const overlayClass = 'overlay';
+export const openClass = 'open';
 export const overlayBackClass = 'overlay-background';
 
 const openProp = 'open';
@@ -76,6 +78,15 @@ export class QingOverlay extends LitElement {
         flex-direction: column;
         overflow: auto;
       }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
     `;
   }
 
@@ -89,16 +100,21 @@ export class QingOverlay extends LitElement {
   override render() {
     const { open } = this;
     const dialogEl = this.legacy
-      ? html`<div class=${overlayClass} part=${overlayClass}>
+      ? html`<div
+          class=${classMap({ [overlayClass]: true, [openClass]: open })}
+          part=${overlayClass}>
           <slot></slot>
         </div>`
-      : html`<dialog class=${overlayClass} part=${overlayClass}>
+      : html`<dialog
+          class=${classMap({ [overlayClass]: true, [openClass]: open })}
+          part=${overlayClass}>
           <slot></slot>
         </dialog>`;
     return html`
       <div
         style=${styleMap({
           display: open ? 'flex' : 'none',
+          animation: 'fadeIn 0.5s',
         })}
         class=${overlayBackClass}
         part=${overlayBackClass}>
