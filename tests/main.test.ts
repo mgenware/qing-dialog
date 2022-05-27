@@ -70,3 +70,37 @@ it('Keydown events', async () => {
   document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
   await enterDown;
 });
+
+it('Restore focus', async () => {
+  await fixture(html`
+    <button>Btn</button>
+    <qing-overlay>
+      <div>Hello World</div>
+      <form>
+        <input autofocus type="text" value="name" id="textInput" />
+      </form>
+    </qing-overlay>
+  `);
+
+  await aTimeout();
+
+  // Focus the button.
+  document.querySelector('button')?.focus();
+  expect(document.activeElement?.textContent).to.eq('Btn');
+
+  // Open the overlay.
+  const overlay = document.querySelector('qing-overlay') as QingOverlay;
+  const shown = oneEvent(overlay, openChanged);
+  overlay.open = true;
+  await shown;
+  // Focus should be the input inside the dialog.
+  expect(document.activeElement?.tagName).to.eq('INPUT');
+
+  // Close the overlay.
+  const closed = oneEvent(overlay, openChanged);
+  overlay.open = false;
+  await closed;
+
+  // Focus should be restored.
+  expect(document.activeElement?.textContent).to.eq('Btn');
+});
