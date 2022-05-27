@@ -30,13 +30,15 @@ interface HTMLDialogElement extends HTMLElement {
    */
   close(): void;
   /**
-   * Displays the dialog modelessly, i.e. still allowing interaction with content outside of the dialog.
+   * Displays the dialog modelessly, i.e. still allowing interaction with
+   * content outside of the dialog.
    * An optional Element or MouseEvent may be passed as an argument,
    * to specify an anchor point to which the dialog is fixed.
    */
   show(): void;
   /**
-   * Displays the dialog for exclusive interaction, over the top of any other dialogs that might be present.
+   * Displays the dialog for exclusive interaction, over the top of any
+   * other dialogs that might be present.
    * An optional Element or MouseEvent may be passed as an argument,
    * to specify an anchor point to which the dialog is fixed.
    */
@@ -74,6 +76,7 @@ export class QingOverlay extends LitElement {
         max-width: 100vw;
         width: 100vw;
         border: 0;
+        padding: 1rem;
         display: flex;
         flex-direction: column;
         overflow: auto;

@@ -6,7 +6,9 @@ import { QingOverlay } from '../dist/main.js';
 import { aTimeout } from './lib.js';
 
 it('.overlay styles', async () => {
-  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
+  const el = await fixture<QingOverlay>(
+    html` <qing-overlay open legacy><p>test</p></qing-overlay> `,
+  );
   await aTimeout();
 
   const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay')!);
@@ -17,7 +19,9 @@ it('.overlay styles', async () => {
 });
 
 it('.overlay-background styles', async () => {
-  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
+  const el = await fixture<QingOverlay>(
+    html` <qing-overlay open legacy><p>test</p></qing-overlay> `,
+  );
   await aTimeout();
 
   const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay-background')!);
@@ -25,7 +29,9 @@ it('.overlay-background styles', async () => {
 });
 
 it('height = auto, width = full', async () => {
-  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
+  const el = await fixture<QingOverlay>(
+    html` <qing-overlay open legacy><p>test</p></qing-overlay> `,
+  );
   await aTimeout();
 
   const rect = el.shadowRoot!.querySelector('.overlay')!.getBoundingClientRect();
@@ -37,7 +43,7 @@ it('height = auto, width = full', async () => {
 
 it('--overlay-z-index', async () => {
   const el = await fixture<QingOverlay>(
-    html` <qing-overlay style="--overlay-z-index:99" open><p>test</p></qing-overlay> `,
+    html` <qing-overlay style="--overlay-z-index:99" open legacyd><p>test</p></qing-overlay> `,
   );
   await aTimeout();
 

@@ -10,7 +10,7 @@ const escKeyDown = 'escKeyDown';
 const enterKeyDown = 'enterKeyDown';
 
 it('Default state', async () => {
-  const el = await fixture<QingOverlay>(html` <qing-overlay><p>test</p></qing-overlay> `);
+  const el = await fixture<QingOverlay>(html` <qing-overlay legacy><p>test</p></qing-overlay> `);
 
   tDOM.isBlockElement(el);
   expect(el.innerHTML).to.eq('<p>test</p>');
@@ -20,7 +20,7 @@ it('Default state', async () => {
 it('openChanged', async () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const el = (await fixture(html`
-    <qing-overlay>
+    <qing-overlay legacy>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
@@ -52,7 +52,7 @@ it('openChanged', async () => {
 
 it('Keydown events', async () => {
   const el = await fixture(html`
-    <qing-overlay open>
+    <qing-overlay open legacy>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
