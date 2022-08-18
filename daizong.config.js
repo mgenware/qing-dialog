@@ -1,3 +1,5 @@
+const runTestCmd = 'wtr dist_tests/**/*.test.js --node-resolve --playwright --browsers webkit';
+
 export default {
   // Starts development mode: watches and compiles all source files including tests.
   dev: {
@@ -9,13 +11,9 @@ export default {
   },
 
   // Runs tests (you need to build the project first).
-  t: {
-    run: 'web-test-runner dist_tests/**/*.test.js --node-resolve',
-  },
+  t: runTestCmd,
   // Runs tests in watch mode (you need to build the project first).
-  tw: {
-    run: 'web-test-runner dist_tests/**/*.test.js --node-resolve --watch',
-  },
+  tw: `${runTestCmd} --watch`,
 
   // Cleans, lints, compiles sources and runs tests.
   build: {

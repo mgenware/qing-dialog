@@ -86,13 +86,8 @@ export class ExampleApp extends LitElement {
           html` <h2>Title</h2>
             <p>Hello world</p>
             <p>
-              <input type="text" value="name" id="textInput" />
+              <input autofocus type="text" value="name" id="textInput" />
             </p>`,
-          (e) => {
-            if (e.detail) {
-              this.shadowRoot.getElementById('textInput').focus();
-            }
-          },
         )}
         <h2>Styles</h2>
         ${this.r(
@@ -133,16 +128,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
       </p>
       <qing-overlay
         id=${id}
-        @escKeyDown=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}
-        @openChanged=${(e) => {
-          if (e.detail) {
-            // Focus the OK button first.
-            this.shadowRoot.getElementById(btnID).focus();
-          }
-          if (handler) {
-            handler(e);
-          }
-        }}>
+        @escKeyDown=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}>
         ${content ?? html`<dynamic-content></dynamic-content>`}
         <p style="text-align:center">
           <button
