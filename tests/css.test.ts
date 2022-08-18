@@ -35,9 +35,9 @@ it('height = auto, width = full', async () => {
   expect(rect.height).to.greaterThan(0);
 });
 
-it('--overlay-z-index', async () => {
+it('--overlay-bg-z-index', async () => {
   const el = await fixture<QingOverlay>(
-    html` <qing-overlay style="--overlay-z-index:99" open><p>test</p></qing-overlay> `,
+    html` <qing-overlay style="--overlay-bg-z-index:99" open><p>test</p></qing-overlay> `,
   );
   await aTimeout();
 

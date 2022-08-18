@@ -63,7 +63,7 @@ export class QingOverlay extends LitElement {
         height: 100vh;
         width: 100vw;
         position: fixed;
-        z-index: var(--overlay-z-index, 1000);
+        z-index: var(--overlay-bg-z-index, 1000);
         top: 0;
         left: 0;
         background-color: rgba(0, 0, 0, 0.3);
@@ -96,7 +96,7 @@ export class QingOverlay extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   override firstUpdated() {
-    document.addEventListener('keyup', this.handleKeyUp.bind(this));
+    document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
   override render() {
@@ -129,24 +129,22 @@ export class QingOverlay extends LitElement {
         } else {
           dialogEl?.close();
         }
+
+        const eventName = this.open ? 'overlay-open' : 'overlay-close';
         // `setTimeout` ensures `updated` is finished first.
-        setTimeout(() => this.onOpenChanged(), 0);
+        setTimeout(() => this.dispatchEvent(new CustomEvent(eventName)), 0);
       }
     }
   }
 
-  private onOpenChanged() {
-    this.dispatchEvent(new CustomEvent<boolean>('openChanged', { detail: this.open }));
-  }
-
-  private handleKeyUp(e: KeyboardEvent) {
+  private handleKeyDown(e: KeyboardEvent) {
     if (!this.open) {
       return;
     }
     if (e.key === 'Escape' || e.key === 'Esc') {
-      this.dispatchEvent(new CustomEvent('escKeyDown'));
+      this.dispatchEvent(new CustomEvent('overlay-esc-down'));
     } else if (e.key === 'Enter') {
-      this.dispatchEvent(new CustomEvent('enterKeyDown'));
+      this.dispatchEvent(new CustomEvent('overlay-enter-down'));
     }
   }
 }

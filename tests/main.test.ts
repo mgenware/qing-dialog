@@ -5,9 +5,10 @@ import '../dist/main.js';
 import { QingOverlay } from '../dist/main.js';
 import { aTimeout } from './lib.js';
 
-const openChanged = 'openChanged';
-const escKeyDown = 'escKeyDown';
-const enterKeyDown = 'enterKeyDown';
+const openEvent = 'overlay-open';
+const closeEvent = 'overlay-close';
+const escEvent = 'overlay-esc-down';
+const enterEvent = 'overlay-enter-down';
 
 it('Default state', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay><p>test</p></qing-overlay> `);
@@ -17,7 +18,7 @@ it('Default state', async () => {
   expect(el.getAttribute('open')).to.eq(null);
 });
 
-it('openChanged', async () => {
+it('overlay-open', async () => {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const el = (await fixture(html`
     <qing-overlay>
@@ -28,25 +29,19 @@ it('openChanged', async () => {
     </qing-overlay>
   `)) as QingOverlay;
 
-  const shown = oneEvent(el, openChanged);
+  const shown = oneEvent(el, openEvent);
   el.open = true;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  let e = await shown;
-  expect(e.detail).to.eq(true);
+  await shown;
   expect(el.getAttribute('open')).to.eq('');
 
-  const closed = oneEvent(el, openChanged);
+  const closed = oneEvent(el, closeEvent);
   el.open = false;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  e = await closed;
-  expect(e.detail).to.eq(false);
+  await closed;
   expect(el.getAttribute('open')).to.eq(null);
 
-  const reopen = oneEvent(el, openChanged);
+  const reopen = oneEvent(el, openEvent);
   el.open = true;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  e = await reopen;
-  expect(e.detail).to.eq(true);
+  await reopen;
   expect(el.getAttribute('open')).to.eq('');
 });
 
@@ -62,45 +57,11 @@ it('Keydown events', async () => {
 
   await aTimeout();
 
-  const escDown = oneEvent(el, escKeyDown);
-  document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Escape' }));
+  const escDown = oneEvent(el, escEvent);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
   await escDown;
 
-  const enterDown = oneEvent(el, enterKeyDown);
-  document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+  const enterDown = oneEvent(el, enterEvent);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
   await enterDown;
-});
-
-it('Restore focus', async () => {
-  await fixture(html`
-    <button>Btn</button>
-    <qing-overlay>
-      <div>Hello World</div>
-      <form>
-        <input autofocus type="text" value="name" id="textInput" />
-      </form>
-    </qing-overlay>
-  `);
-
-  await aTimeout();
-
-  // Focus the button.
-  document.querySelector('button')?.focus();
-  expect(document.activeElement?.textContent).to.eq('Btn');
-
-  // Open the overlay.
-  const overlay = document.querySelector('qing-overlay') as QingOverlay;
-  const shown = oneEvent(overlay, openChanged);
-  overlay.open = true;
-  await shown;
-  // Focus should be the input inside the dialog.
-  expect(document.activeElement?.tagName).to.eq('INPUT');
-
-  // Close the overlay.
-  const closed = oneEvent(overlay, openChanged);
-  overlay.open = false;
-  await closed;
-
-  // Focus should be restored.
-  expect(document.activeElement?.textContent).to.eq('Btn');
 });

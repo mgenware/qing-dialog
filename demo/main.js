@@ -76,9 +76,10 @@ export class ExampleApp extends LitElement {
         ${this.r('Width: auto + min value, Height: auto', 'layout-auto-min-width')}
         ${this.r('Fullscreen with margins', 'layout-full-margins')}
         <h2>Events</h2>
-        ${this.r('Handle events', 'handle-events', undefined, (e) =>
-          alert(e.detail ? 'Opening' : 'Closing'),
-        )}
+        ${this.r('Handle events', 'handle-events', undefined, {
+          open: () => alert('Opening'),
+          close: () => alert('Closing'),
+        })}
         <h2>Focus</h2>
         ${this.r(
           'Focus',
@@ -118,24 +119,20 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
     `;
   }
 
-  r(text, id, content, handler) {
+  r(text, id, content, events) {
     const btnID = `${id}-btn`;
     return html`
       <p>
-        <button @click=${() => this.shadowRoot.getElementById(id).setAttribute('open', '')}>
-          ${text}
-        </button>
+        <button @click=${() => this.openOverlay(id)}>${text}</button>
       </p>
       <qing-overlay
         id=${id}
-        @escKeyDown=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}>
+        @overlay-esc-down=${() => this.closeOverlay(id)}
+        @overlay-open=${() => events?.open()}
+        @overlay-close=${() => events?.close()}>
         ${content ?? html`<dynamic-content></dynamic-content>`}
         <p style="text-align:center">
-          <button
-            id=${btnID}
-            @click=${() => this.shadowRoot.getElementById(id).removeAttribute('open')}>
-            OK
-          </button>
+          <button id=${btnID} @click=${() => this.closeOverlay(id)}>OK</button>
         </p>
       </qing-overlay>
     `;
@@ -144,9 +141,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
   rElement(text, id, content) {
     return html`
       <p>
-        <button @click=${() => this.shadowRoot.getElementById(id).setAttribute('open', '')}>
-          ${text}
-        </button>
+        <button @click=${() => this.openOverlay(id)}>${text}</button>
       </p>
       ${content}
     `;
@@ -162,6 +157,14 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
 
   handleDarkBtnClick() {
     this.mainElement.classList.add('theme-dark');
+  }
+
+  openOverlay(id) {
+    this.shadowRoot.getElementById(id).setAttribute('open', '');
+  }
+
+  closeOverlay(id) {
+    this.shadowRoot.getElementById(id).removeAttribute('open');
   }
 }
 

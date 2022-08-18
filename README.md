@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/qing-overlay.svg?style=flat-square)](https://npmjs.com/package/qing-overlay)
 [![Node.js Version](http://img.shields.io/node/v/qing-overlay.svg?style=flat-square)](https://nodejs.org/en/)
 
-Display an overlay on screen
+Display an overlay on screen. Based on the `<dialog>` element ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)).
 
 ## Demo
 
@@ -16,7 +16,7 @@ Display an overlay on screen
 > qing-overlay is based on lit.
 
 ```sh
-npm i qing-overlay
+npm i qing-overlay lit
 ```
 
 ## Usage
@@ -32,7 +32,7 @@ npm i qing-overlay
 
 ### Overlay size
 
-Overlay size is fully customizable. By default, height defaults to auto (fits content size), width defaults to `100vw` (mobile first design). You might need to add some CSS to fit your use case. Some examples:
+Overlay size is fully customizable. By default, height defaults to auto (fits content size), and width defaults to `100vw`. You can add custom CSS to fit your use case. Some examples:
 
 ```css
 /** Example 1 **/
@@ -69,20 +69,14 @@ qing-overlay::part(overlay) {
 
 ### Attributes
 
-- `open`: `boolean` indicates whether the overlay is open. Default is `false`.
+- `open`: `boolean` indicates whether the overlay is visible.
 
 ### Events
 
-```ts
-class QingOverlay {
-  // Fires whenever `open` attribute changes.
-  openChanged: CustomEvent<boolean>;
-  // Fires when Esc key is pressed.
-  escKeyDown: CustomEvent;
-  // Fires when Enter key is pressed.
-  enterKeyDown: CustomEvent;
-}
-```
+`overlay-open`: fires when an overlay is opened.
+`overlay-close`: fires when an overlay is closed.
+`overlay-esc-down`: fires when ESC key is pressed.
+`overlay-enter-down`: fires when Enter key is pressed.
 
 ### CSS Shadow Parts
 
@@ -91,4 +85,4 @@ class QingOverlay {
 
 ### CSS Variables
 
-- `--overlay-z-index` z-index of the overlay, defaults to `1000`.
+- `--overlay-bg-z-index` z-index of the overlay, defaults to `1000`. Note that this is the `z-index` of overlay background, not overlay content. Overlay content is rendered in `<dialog>` element, which is added to the top layer ([spec](https://fullscreen.spec.whatwg.org/#new-stacking-layer)).
