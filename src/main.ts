@@ -94,7 +94,6 @@ export class QingOverlay extends LitElement {
   }
 
   @property({ type: Boolean, reflect: true }) open = false;
-  @property({ type: Boolean, reflect: true }) legacy = false;
 
   override firstUpdated() {
     document.addEventListener('keyup', this.handleKeyUp.bind(this));
@@ -102,17 +101,11 @@ export class QingOverlay extends LitElement {
 
   override render() {
     const { open } = this;
-    const dialogEl = this.legacy
-      ? html`<div
-          class=${classMap({ [overlayClass]: true, [openClass]: open })}
-          part=${overlayClass}>
-          <slot></slot>
-        </div>`
-      : html`<dialog
-          class=${classMap({ [overlayClass]: true, [openClass]: open })}
-          part=${overlayClass}>
-          <slot></slot>
-        </dialog>`;
+    const dialogEl = html`<dialog
+      class=${classMap({ [overlayClass]: true, [openClass]: open })}
+      part=${overlayClass}>
+      <slot></slot>
+    </dialog>`;
     return html`
       <div
         style=${styleMap({
@@ -130,13 +123,11 @@ export class QingOverlay extends LitElement {
     if (changedProperties.has(openProp)) {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!!changedProperties.get(openProp) !== this.open) {
-        if (!this.legacy) {
-          const dialogEl = this.shadowRoot?.querySelector('dialog') as HTMLDialogElement | null;
-          if (this.open) {
-            dialogEl?.showModal();
-          } else {
-            dialogEl?.close();
-          }
+        const dialogEl = this.shadowRoot?.querySelector('dialog') as HTMLDialogElement | null;
+        if (this.open) {
+          dialogEl?.showModal();
+        } else {
+          dialogEl?.close();
         }
         // `setTimeout` ensures `updated` is finished first.
         setTimeout(() => this.onOpenChanged(), 0);
