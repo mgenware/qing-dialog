@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['16', '14']
+        node: ['16']
     name: Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v2
@@ -17,3 +17,4 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm i
       - run: npm test
+      - run: npx playwright install-deps -y
