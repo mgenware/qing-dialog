@@ -4,7 +4,6 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 export const overlayClass = 'overlay';
-export const openClass = 'open';
 export const overlayBackClass = 'overlay-background';
 
 const openProp = 'open';
@@ -94,6 +93,7 @@ export class QingOverlay extends LitElement {
   }
 
   @property({ type: Boolean, reflect: true }) open = false;
+  @property({ type: Boolean, reflect: true }) closeOnEsc = false;
 
   override firstUpdated() {
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -102,8 +102,9 @@ export class QingOverlay extends LitElement {
   override render() {
     const { open } = this;
     const dialogEl = html`<dialog
-      class=${classMap({ [overlayClass]: true, [openClass]: open })}
-      part=${overlayClass}>
+      class=${classMap({ [overlayClass]: true })}
+      part=${overlayClass}
+      @cancel=${(e: Event) => this.handleCancel(e)}>
       <slot></slot>
     </dialog>`;
     return html`
@@ -142,10 +143,17 @@ export class QingOverlay extends LitElement {
       return;
     }
     if (e.key === 'Escape' || e.key === 'Esc') {
+      if (this.closeOnEsc) {
+        this.open = false;
+      }
       this.dispatchEvent(new CustomEvent('overlay-esc-down'));
     } else if (e.key === 'Enter') {
       this.dispatchEvent(new CustomEvent('overlay-enter-down'));
     }
+  }
+
+  private handleCancel(e: Event) {
+    e.preventDefault();
   }
 }
 

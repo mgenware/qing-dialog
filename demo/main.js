@@ -108,13 +108,37 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
             <p>
               <button @click=${this.handleLightBtnClick}>Light</button>
               <button @click=${this.handleDarkBtnClick}>Dark</button>
-              <button
-                @click=${() => this.shadowRoot.getElementById('themes').removeAttribute('open')}>
-                Close
-              </button>
+              <button @click=${() => this.openOverlay('themes')}>Close</button>
             </p>
           </qing-overlay>`,
         )}
+        <h2>Nesting</h2>
+        ${this.rElement(
+          'Nesting',
+          'nesting',
+          html` <qing-overlay id="nesting">
+            <h2>Title</h2>
+            <p>
+              <button @click=${() => this.openOverlay('child1')}>Open</button>
+              <button @click=${() => this.closeOverlay('nesting')}>Close</button>
+            </p>
+          </qing-overlay>`,
+        )}
+        <div class="nested-overlays">
+          <qing-overlay id="child1">
+            <h2>Title</h2>
+            <p>
+              <button @click=${() => this.openOverlay('child2')}>Open</button>
+              <button @click=${() => this.closeOverlay('child1')}>Close</button>
+            </p>
+          </qing-overlay>
+          <qing-overlay id="child2">
+            <h2>Title</h2>
+            <p>
+              <button @click=${() => this.closeOverlay('child2')}>Close</button>
+            </p>
+          </qing-overlay>
+        </div>
       </div>
     `;
   }
@@ -127,7 +151,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
       </p>
       <qing-overlay
         id=${id}
-        @overlay-esc-down=${() => this.closeOverlay(id)}
+        closeOnEsc
         @overlay-open=${() => events?.open()}
         @overlay-close=${() => events?.close()}>
         ${content ?? html`<dynamic-content></dynamic-content>`}
@@ -225,6 +249,39 @@ ExampleApp.styles = [
       border: 1px solid #818181;
       color: var(--default-fore-color);
       background-color: var(--default-btn-back-color);
+    }
+
+    qing-overlay#nesting::part(overlay) {
+      width: calc(100vw - 1rem);
+      height: calc(100vh - 1rem);
+    }
+    @media (min-width: 768px) {
+      qing-overlay#nesting::part(overlay) {
+        width: calc(100vw - 4rem);
+        height: calc(100vh - 4rem);
+      }
+    }
+
+    qing-overlay#child1::part(overlay) {
+      width: calc(100vw - 2rem);
+      height: calc(100vh - 2rem);
+    }
+    @media (min-width: 768px) {
+      qing-overlay#child1::part(overlay) {
+        width: calc(100vw - 8rem);
+        height: calc(100vh - 8rem);
+      }
+    }
+
+    qing-overlay#child2::part(overlay) {
+      width: calc(100vw - 4rem);
+      height: calc(100vh - 4rem);
+    }
+    @media (min-width: 768px) {
+      qing-overlay#child2::part(overlay) {
+        width: calc(100vw - 16rem);
+        height: calc(100vh - 16rem);
+      }
     }
   `,
 ];

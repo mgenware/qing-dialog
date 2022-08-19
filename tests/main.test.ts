@@ -18,16 +18,15 @@ it('Default state', async () => {
   expect(el.getAttribute('open')).to.eq(null);
 });
 
-it('overlay-open', async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const el = (await fixture(html`
+it('Open and close events', async () => {
+  const el = await fixture<QingOverlay>(html`
     <qing-overlay>
       <div>Hello World</div>
       <form>
         <input type="text" value="name" id="textInput" />
       </form>
     </qing-overlay>
-  `)) as QingOverlay;
+  `);
 
   const shown = oneEvent(el, openEvent);
   el.open = true;
