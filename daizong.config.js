@@ -17,7 +17,7 @@ export default {
 
   // Cleans, lints, compiles sources and runs tests.
   build: {
-    run: ['#clean', 'tsc -b tests', '#lint', '#t'],
+    run: ['#clean', '#compile', '#lint', '#t'],
     envGroups: ['production'],
   },
 
@@ -27,6 +27,8 @@ export default {
       del: ['dist', 'dist_tests'],
     },
   },
+
+  compile: 'tsc -b tests',
 
   // Lints the project using ESLint, auto triggered by `#build`.
   lint: {
