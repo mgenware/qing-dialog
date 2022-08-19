@@ -112,7 +112,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
             <p>
               <button @click=${this.handleLightBtnClick}>Light</button>
               <button @click=${this.handleDarkBtnClick}>Dark</button>
-              <button @click=${() => this.openOverlay('themes')}>Close</button>
+              <button @click=${() => this.closeOverlay('themes')}>Close</button>
             </p>
           </qing-overlay>`,
         )}
@@ -120,10 +120,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
         ${this.rElement(
           'Nesting',
           'nesting',
-          html` <qing-overlay
-            id="nesting"
-            closeOnEsc
-            @overlay-esc-down=${() => console.log('Esc down')}
+          html` <qing-overlay id="nesting" closeOnEsc>
             <h2>Title</h2>
             <p>
               <button @click=${() => this.openOverlay('child1')}>Open</button>
