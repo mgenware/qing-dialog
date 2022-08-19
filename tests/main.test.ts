@@ -8,7 +8,6 @@ import { aTimeout } from './lib.js';
 const openEvent = 'overlay-open';
 const closeEvent = 'overlay-close';
 const escEvent = 'overlay-esc-down';
-const enterEvent = 'overlay-enter-down';
 
 it('Default state', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay><p>test</p></qing-overlay> `);
@@ -58,10 +57,6 @@ it('Keydown events', async () => {
   const escDown = oneEvent(el, escEvent);
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
   await escDown;
-
-  const enterDown = oneEvent(el, enterEvent);
-  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-  await enterDown;
 });
 
 it('The internal <dialog> open attr should be in sync', async () => {

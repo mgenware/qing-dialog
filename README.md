@@ -72,13 +72,13 @@ qing-overlay::part(overlay) {
 ### Attributes
 
 - `open`: `boolean` indicates whether the overlay is visible.
+- `closeOnEsc`: `boolean` true if the overlay should be closed when Esc is down. Defaults to `false`.
 
 ### Events
 
 `overlay-open`: fires when an overlay is opened.
 `overlay-close`: fires when an overlay is closed.
 `overlay-esc-down`: fires when ESC key is pressed.
-`overlay-enter-down`: fires when Enter key is pressed.
 
 ### CSS Shadow Parts
 

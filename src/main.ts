@@ -95,16 +95,12 @@ export class QingOverlay extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
 
-  override firstUpdated() {
-    document.addEventListener('keydown', this.handleKeyDown.bind(this));
-  }
-
   override render() {
     const { open } = this;
     const dialogEl = html`<dialog
       class=${classMap({ [overlayClass]: true })}
       part=${overlayClass}
-      @cancel=${(e: Event) => this.handleCancel(e)}>
+      @cancel=${this.handleCancel}>
       <slot></slot>
     </dialog>`;
     return html`
@@ -138,22 +134,13 @@ export class QingOverlay extends LitElement {
     }
   }
 
-  private handleKeyDown(e: KeyboardEvent) {
-    if (!this.open) {
-      return;
-    }
-    if (e.key === 'Escape' || e.key === 'Esc') {
-      this.dispatchEvent(new CustomEvent('overlay-esc-down'));
-    } else if (e.key === 'Enter') {
-      this.dispatchEvent(new CustomEvent('overlay-enter-down'));
-    }
-  }
-
   // eslint-disable-next-line class-methods-use-this
   private handleCancel(e: Event) {
     e.preventDefault();
     if (this.closeOnEsc) {
       this.open = false;
+    } else {
+      this.dispatchEvent(new CustomEvent('overlay-esc-down'));
     }
   }
 }

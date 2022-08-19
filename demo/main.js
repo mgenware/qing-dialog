@@ -79,6 +79,10 @@ export class ExampleApp extends LitElement {
         ${this.r('Handle events', 'handle-events', undefined, {
           open: () => alert('Opening'),
           close: () => alert('Closing'),
+          escDown: () => {
+            alert('Esc down');
+            this.closeOverlay('handle-events');
+          },
         })}
         <h2>Focus</h2>
         ${this.r(
@@ -120,7 +124,6 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
             id="nesting"
             closeOnEsc
             @overlay-esc-down=${() => console.log('Esc down')}
-            @overlay-enter-down=${() => console.log('Enter down')}>
             <h2>Title</h2>
             <p>
               <button @click=${() => this.openOverlay('child1')}>Open</button>
@@ -155,9 +158,10 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
       </p>
       <qing-overlay
         id=${id}
-        closeOnEsc
+        ?closeOnEsc=${!events?.escDown}
         @overlay-open=${() => events?.open()}
-        @overlay-close=${() => events?.close()}>
+        @overlay-close=${() => events?.close()}
+        @overlay-esc-down=${() => events?.escDown()}>
         ${content ?? html`<dynamic-content></dynamic-content>`}
         <p style="text-align:center">
           <button id=${btnID} @click=${() => this.closeOverlay(id)}>OK</button>
