@@ -1,4 +1,6 @@
-# qing-overlay (WIP)
+# qing-overlay
+
+![Qing overlay logo](qing-overlay.png)
 
 [![Build Status](https://github.com/mgenware/qing-overlay/workflows/Build/badge.svg)](https://github.com/mgenware/qing-overlay/actions)
 [![Pages Status](https://github.com/mgenware/qing-overlay/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-overlay/actions)
