@@ -16,5 +16,5 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: npm i
-      - run: npm test
       - run: npx playwright install-deps -y
+      - run: npm test
