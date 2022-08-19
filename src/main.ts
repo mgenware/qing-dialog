@@ -143,17 +143,18 @@ export class QingOverlay extends LitElement {
       return;
     }
     if (e.key === 'Escape' || e.key === 'Esc') {
-      if (this.closeOnEsc) {
-        this.open = false;
-      }
       this.dispatchEvent(new CustomEvent('overlay-esc-down'));
     } else if (e.key === 'Enter') {
       this.dispatchEvent(new CustomEvent('overlay-enter-down'));
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private handleCancel(e: Event) {
     e.preventDefault();
+    if (this.closeOnEsc) {
+      this.open = false;
+    }
   }
 }
 

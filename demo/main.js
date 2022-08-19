@@ -103,7 +103,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
         ${this.rElement(
           'Themes',
           'themes',
-          html` <qing-overlay id="themes">
+          html` <qing-overlay closeOnEsc id="themes">
             <h2>Title</h2>
             <p>
               <button @click=${this.handleLightBtnClick}>Light</button>
@@ -116,7 +116,11 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
         ${this.rElement(
           'Nesting',
           'nesting',
-          html` <qing-overlay id="nesting">
+          html` <qing-overlay
+            id="nesting"
+            closeOnEsc
+            @overlay-esc-down=${() => console.log('Esc down')}
+            @overlay-enter-down=${() => console.log('Enter down')}>
             <h2>Title</h2>
             <p>
               <button @click=${() => this.openOverlay('child1')}>Open</button>
@@ -125,14 +129,14 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
           </qing-overlay>`,
         )}
         <div class="nested-overlays">
-          <qing-overlay id="child1">
+          <qing-overlay id="child1" closeOnEsc>
             <h2>Title</h2>
             <p>
               <button @click=${() => this.openOverlay('child2')}>Open</button>
               <button @click=${() => this.closeOverlay('child1')}>Close</button>
             </p>
           </qing-overlay>
-          <qing-overlay id="child2">
+          <qing-overlay id="child2" closeOnEsc>
             <h2>Title</h2>
             <p>
               <button @click=${() => this.closeOverlay('child2')}>Close</button>

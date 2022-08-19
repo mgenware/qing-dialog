@@ -53,7 +53,6 @@ it('Keydown events', async () => {
       </form>
     </qing-overlay>
   `);
-
   await aTimeout();
 
   const escDown = oneEvent(el, escEvent);
@@ -63,4 +62,53 @@ it('Keydown events', async () => {
   const enterDown = oneEvent(el, enterEvent);
   document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
   await enterDown;
+});
+
+it('The internal <dialog> open attr should be in sync', async () => {
+  const el = await fixture<QingOverlay>(html` <qing-overlay><p>test</p></qing-overlay> `);
+
+  const dialogEl = el.shadowRoot?.querySelector('dialog');
+  expect(dialogEl?.getAttribute('open')).to.eq(null);
+
+  const shown = oneEvent(el, openEvent);
+  el.open = true;
+  await shown;
+  expect(dialogEl?.getAttribute('open')).to.eq('');
+
+  const closed = oneEvent(el, closeEvent);
+  el.open = false;
+  await closed;
+  expect(el.getAttribute('open')).to.eq(null);
+  expect(dialogEl?.getAttribute('open')).to.eq(null);
+});
+
+it('Disable the intrinsic <dialog> Esc behavior', async () => {
+  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
+  await aTimeout();
+
+  const dialogEl = el.shadowRoot?.querySelector('dialog');
+
+  const escDown = oneEvent(el, escEvent);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+  await escDown;
+
+  // When a <dialog> is shown, pressing Esc will cause its `open` attr
+  // to be unset. qing-overlay disabled this behavior by default.
+  expect(dialogEl?.getAttribute('open')).to.eq('');
+});
+
+it('`closeOnEsc`', async () => {
+  const el = await fixture<QingOverlay>(
+    html` <qing-overlay open closeOnEsc><p>test</p></qing-overlay> `,
+  );
+  await aTimeout();
+
+  const dialogEl = el.shadowRoot?.querySelector('dialog');
+
+  const closed = oneEvent(el, closeEvent);
+  document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+  await closed;
+
+  expect(el.getAttribute('open')).to.eq(null);
+  expect(dialogEl?.getAttribute('open')).to.eq(null);
 });
