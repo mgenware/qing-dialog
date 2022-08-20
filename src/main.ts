@@ -72,6 +72,11 @@ export class QingOverlay extends LitElement {
         animation: fade-in var(--overlay-animation-duration, 0.5s);
       }
 
+      dialog.qing-spinner::backdrop {
+        background: var(--overlay-backdrop-background, rgba(0, 0, 0, 0.9));
+        animation: fade-in var(--overlay-animation-duration, 0.1s);
+      }
+
       @keyframes fade-in {
         from {
           opacity: 0;
@@ -86,9 +91,16 @@ export class QingOverlay extends LitElement {
   @property({ type: Boolean, reflect: true }) open = false;
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
 
+  // Remove this when https://github.com/whatwg/fullscreen/issues/124 is resolved.
+  // Used in qing since ::backdrop is not fully customizable.
+  @property({ type: Number }) qingMode = 0;
+
   override render() {
     return html`
-      <dialog part="dialog" @cancel=${this.handleCancel}>
+      <dialog
+        part="dialog"
+        class=${this.qingMode ? 'qing-spinner' : ''}
+        @cancel=${this.handleCancel}>
         <slot></slot>
       </dialog>
     `;

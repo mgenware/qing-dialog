@@ -1,4 +1,4 @@
-# qing-overlay
+# qing-overlay (WIP)
 
 ![Qing overlay logo](qing-overlay.png)
 
@@ -6,6 +6,8 @@
 [![Pages Status](https://github.com/mgenware/qing-overlay/workflows/Pages/badge.svg)](https://github.com/mgenware/qing-overlay/actions)
 [![npm version](https://img.shields.io/npm/v/qing-overlay.svg?style=flat-square)](https://npmjs.com/package/qing-overlay)
 [![Node.js Version](http://img.shields.io/node/v/qing-overlay.svg?style=flat-square)](https://nodejs.org/en/)
+
+**This component is not production-ready due to [this issue](https://github.com/whatwg/fullscreen/issues/124).**
 
 An overlay component based on the `<dialog>` element ([MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)).
 
