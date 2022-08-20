@@ -76,9 +76,9 @@ qing-overlay::part(overlay) {
 
 ### Events
 
-`overlay-open`: fires when an overlay is opened.
-`overlay-close`: fires when an overlay is closed.
-`overlay-esc-down`: fires when ESC key is pressed.
+- `overlay-open`: fires when an overlay is opened.
+- `overlay-close`: fires when an overlay is closed.
+- `overlay-esc-down`: fires when ESC key is pressed.
 
 ### CSS Shadow Parts
 
