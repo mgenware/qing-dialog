@@ -118,6 +118,7 @@ const at=1,ht=t=>(...e)=>({_$litDirective$:t,values:e});class ct{constructor(t){
         background-color: rgba(0, 0, 0, 0.3);
         align-items: center;
         justify-content: center;
+        animation: fadeIn var(--overlay-animation-duration, 0.5s);
       }
 
       .overlay {
@@ -139,17 +140,17 @@ const at=1,ht=t=>(...e)=>({_$litDirective$:t,values:e});class ct{constructor(t){
           opacity: 1;
         }
       }
-    `}render(){const{open:t}=this,e=N`<dialog
-      class=${dt({[vt]:!0})}
-      part=${vt}
-      @cancel=${this.handleCancel}>
-      <slot></slot>
-    </dialog>`;return N`
+    `}render(){const{open:t}=this;return N`
       <div
-        style=${ut({display:t?"flex":"none",animation:"fadeIn 0.5s"})}
+        style=${ut({display:t?"flex":"none"})}
         class=${yt}
         part=${yt}>
-        ${e}
+        <dialog
+          class=${dt({[vt]:!0})}
+          part=${vt}
+          @cancel=${this.handleCancel}>
+          <slot></slot>
+        </dialog>
       </div>
     `}updated(t){if(t.has(mt)&&!!t.get(mt)!==this.open){const t=this.shadowRoot?.querySelector("dialog");this.open?t?.showModal():t?.close();const e=this.open?"overlay-open":"overlay-close";setTimeout((()=>this.dispatchEvent(new CustomEvent(e))),0)}}handleCancel(t){t.preventDefault(),this.closeOnEsc?this.open=!1:this.dispatchEvent(new CustomEvent("overlay-esc-down"))}};pt([nt({type:Boolean,reflect:!0})],$t.prototype,"open",void 0),pt([nt({type:Boolean,reflect:!0})],$t.prototype,"closeOnEsc",void 0),$t=pt([it("qing-overlay")],$t);const ft=r`
   button {
@@ -262,6 +263,13 @@ ${`${"2020 is coming. ".repeat(20)}\n`.repeat(500)}</pre
       </p>
       ${i}
     `}get mainElement(){return this.shadowRoot.getElementById("main")}handleLightBtnClick(){this.mainElement.classList.remove("theme-dark")}handleDarkBtnClick(){this.mainElement.classList.add("theme-dark")}openOverlay(t){this.shadowRoot.getElementById(t).setAttribute("open","")}closeOverlay(t){this.shadowRoot.getElementById(t).removeAttribute("open")}}bt.styles=[ft,r`
+    :host {
+      --default-back-color: white;
+      --default-fore-color: black;
+      --default-btn-back-color: lightgray;
+      --default-success-color: #89ec7c;
+    }
+
     qing-overlay::part(overlay) {
       padding: 0 1.25rem;
     }
@@ -295,12 +303,6 @@ ${`${"2020 is coming. ".repeat(20)}\n`.repeat(500)}</pre
     #border-styles::part(overlay) {
       border: 4px dashed green;
       border-radius: 10px;
-    }
-    :host {
-      --default-back-color: white;
-      --default-fore-color: black;
-      --default-btn-back-color: lightgray;
-      --default-success-color: #89ec7c;
     }
     .theme-dark {
       --default-back-color: black;
