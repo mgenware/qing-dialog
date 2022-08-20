@@ -129,7 +129,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
           </qing-overlay>`,
         )}
         <div class="nested-overlays">
-          <qing-overlay id="child1" qingMode="1" closeOnEsc>
+          <qing-overlay id="child1" closeOnEsc>
             <h2>Title</h2>
             <p>
               <button @click=${() => this.openOverlay('child2')}>Open</button>

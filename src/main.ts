@@ -63,8 +63,7 @@ export class QingOverlay extends LitElement {
       }
 
       dialog:not([open]) {
-        pointer-events: none;
-        opacity: 0;
+        display: none;
       }
 
       dialog::backdrop {
