@@ -87,4 +87,5 @@ qing-overlay::part(overlay) {
 
 ### CSS Variables
 
-- `--overlay-bg-z-index` z-index of the overlay, defaults to `1000`. Note that this is the `z-index` of overlay background, not overlay content. Overlay content is rendered in `<dialog>` element, which is added to the top layer ([spec](https://fullscreen.spec.whatwg.org/#new-stacking-layer)).
+- `--overlay-bg-z-index` z-index of the overlay, defaults to `1000`. Note that this is the `z-index` of overlay background, not overlay content. Overlay content is rendered as `<dialog>` element, which is added to the top layer ([spec](https://fullscreen.spec.whatwg.org/#new-stacking-layer)).
+- `--overlay-animation-duration` background fade-in animation duration.

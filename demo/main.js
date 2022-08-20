@@ -200,6 +200,13 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
 ExampleApp.styles = [
   sharedStyles,
   css`
+    :host {
+      --default-back-color: white;
+      --default-fore-color: black;
+      --default-btn-back-color: lightgray;
+      --default-success-color: #89ec7c;
+    }
+
     qing-overlay::part(overlay) {
       padding: 0 1.25rem;
     }
@@ -233,12 +240,6 @@ ExampleApp.styles = [
     #border-styles::part(overlay) {
       border: 4px dashed green;
       border-radius: 10px;
-    }
-    :host {
-      --default-back-color: white;
-      --default-fore-color: black;
-      --default-btn-back-color: lightgray;
-      --default-success-color: #89ec7c;
     }
     .theme-dark {
       --default-back-color: black;

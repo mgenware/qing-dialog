@@ -68,6 +68,7 @@ export class QingOverlay extends LitElement {
         background-color: rgba(0, 0, 0, 0.3);
         align-items: center;
         justify-content: center;
+        animation: fadeIn var(--overlay-animation-duration, 0.5s);
       }
 
       .overlay {
@@ -97,21 +98,19 @@ export class QingOverlay extends LitElement {
 
   override render() {
     const { open } = this;
-    const dialogEl = html`<dialog
-      class=${classMap({ [overlayClass]: true })}
-      part=${overlayClass}
-      @cancel=${this.handleCancel}>
-      <slot></slot>
-    </dialog>`;
     return html`
       <div
         style=${styleMap({
           display: open ? 'flex' : 'none',
-          animation: 'fadeIn 0.5s',
         })}
         class=${overlayBackClass}
         part=${overlayBackClass}>
-        ${dialogEl}
+        <dialog
+          class=${classMap({ [overlayClass]: true })}
+          part=${overlayClass}
+          @cancel=${this.handleCancel}>
+          <slot></slot>
+        </dialog>
       </div>
     `;
   }
