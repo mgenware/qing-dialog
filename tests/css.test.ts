@@ -5,42 +5,24 @@ import '../dist/main.js';
 import { QingOverlay } from '../dist/main.js';
 import { aTimeout } from './lib.js';
 
-it('.overlay styles', async () => {
+it('<dialog> styles', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
   await aTimeout();
 
-  const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay')!);
+  const styles = window.getComputedStyle(el.shadowRoot!.querySelector('dialog')!);
   expect(styles.display).to.eq('flex');
   expect(styles.flexDirection).to.eq('column');
   expect(styles.padding).to.eq('16px');
   expect(styles.overflow).to.eq('auto');
 });
 
-it('.overlay-background styles', async () => {
-  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
-  await aTimeout();
-
-  const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay-background')!);
-  expect(styles.zIndex).to.eq('1000');
-});
-
 it('height = auto, width = full', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
   await aTimeout();
 
-  const rect = el.shadowRoot!.querySelector('.overlay')!.getBoundingClientRect();
-  expect(rect.x).to.eq(0);
+  const rect = el.shadowRoot!.querySelector('dialog')!.getBoundingClientRect();
+  expect(rect.x).to.greaterThan(0);
   expect(rect.y).to.greaterThan(0);
   expect(rect.width).to.greaterThan(0);
   expect(rect.height).to.greaterThan(0);
-});
-
-it('--overlay-bg-z-index', async () => {
-  const el = await fixture<QingOverlay>(
-    html` <qing-overlay style="--overlay-bg-z-index:99" open><p>test</p></qing-overlay> `,
-  );
-  await aTimeout();
-
-  const styles = window.getComputedStyle(el.shadowRoot!.querySelector('.overlay-background')!);
-  expect(styles.zIndex).to.eq('99');
 });

@@ -99,7 +99,7 @@ export class ExampleApp extends LitElement {
           'Long text',
           'long-text',
           html`<h2>Long text</h2>
-            <pre style="overflow-y: auto">
+            <pre style="overflow-y: auto; margin: 0">
 ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
             >`,
         )}
@@ -207,28 +207,28 @@ ExampleApp.styles = [
       --default-success-color: #89ec7c;
     }
 
-    qing-overlay::part(overlay) {
+    qing-overlay::part(dialog) {
       padding: 0 1.25rem;
     }
 
     @media (min-width: 768px) {
-      qing-overlay::part(overlay) {
+      qing-overlay::part(dialog) {
         width: 80%;
       }
 
-      qing-overlay#layout-auto-min-width::part(overlay) {
+      qing-overlay#layout-auto-min-width::part(dialog) {
         width: auto;
         min-width: 400px;
         max-width: min(100vw, 1000px);
       }
     }
 
-    qing-overlay#layout-full-margins::part(overlay) {
+    qing-overlay#layout-full-margins::part(dialog) {
       width: calc(100vw - 1rem);
       height: calc(100vh - 1rem);
     }
     @media (min-width: 768px) {
-      qing-overlay#layout-full-margins::part(overlay) {
+      qing-overlay#layout-full-margins::part(dialog) {
         width: calc(100vw - 4rem);
         height: calc(100vh - 4rem);
       }
@@ -237,7 +237,7 @@ ExampleApp.styles = [
     h2 {
       margin-bottom: 0;
     }
-    #border-styles::part(overlay) {
+    #border-styles::part(dialog) {
       border: 4px dashed green;
       border-radius: 10px;
     }
@@ -247,7 +247,7 @@ ExampleApp.styles = [
       --default-btn-back-color: #1a1a1a;
       --default-success-color: #073f00;
     }
-    #themes::part(overlay) {
+    #themes::part(dialog) {
       color: var(--default-fore-color);
       background-color: var(--default-back-color);
     }
@@ -257,34 +257,34 @@ ExampleApp.styles = [
       background-color: var(--default-btn-back-color);
     }
 
-    qing-overlay#nesting::part(overlay) {
+    qing-overlay#nesting::part(dialog) {
       width: calc(100vw - 1rem);
       height: calc(100vh - 1rem);
     }
     @media (min-width: 768px) {
-      qing-overlay#nesting::part(overlay) {
+      qing-overlay#nesting::part(dialog) {
         width: calc(100vw - 4rem);
         height: calc(100vh - 4rem);
       }
     }
 
-    qing-overlay#child1::part(overlay) {
+    qing-overlay#child1::part(dialog) {
       width: calc(100vw - 2rem);
       height: calc(100vh - 2rem);
     }
     @media (min-width: 768px) {
-      qing-overlay#child1::part(overlay) {
+      qing-overlay#child1::part(dialog) {
         width: calc(100vw - 8rem);
         height: calc(100vh - 8rem);
       }
     }
 
-    qing-overlay#child2::part(overlay) {
+    qing-overlay#child2::part(dialog) {
       width: calc(100vw - 4rem);
       height: calc(100vh - 4rem);
     }
     @media (min-width: 768px) {
-      qing-overlay#child2::part(overlay) {
+      qing-overlay#child2::part(dialog) {
         width: calc(100vw - 16rem);
         height: calc(100vh - 16rem);
       }

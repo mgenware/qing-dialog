@@ -1,10 +1,5 @@
 import { html, css, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { styleMap } from 'lit/directives/style-map.js';
-
-export const overlayClass = 'overlay';
-export const overlayBackClass = 'overlay-background';
 
 const openProp = 'open';
 
@@ -58,31 +53,26 @@ export class QingOverlay extends LitElement {
         box-sizing: border-box;
       }
 
-      .overlay-background {
-        height: 100vh;
-        width: 100vw;
-        position: fixed;
-        z-index: var(--overlay-bg-z-index, 1000);
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.3);
-        align-items: center;
-        justify-content: center;
-        animation: fadeIn var(--overlay-animation-duration, 0.5s);
-      }
-
-      .overlay {
+      dialog {
         max-height: 100vh;
         max-width: 100vw;
-        width: 100vw;
         border: 0;
         padding: 1rem;
         display: flex;
         flex-direction: column;
-        overflow: auto;
       }
 
-      @keyframes fadeIn {
+      dialog:not([open]) {
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      dialog::backdrop {
+        background: var(--overlay-backdrop-background, rgba(0, 0, 0, 0.3));
+        animation: fade-in var(--overlay-animation-duration, 0.5s);
+      }
+
+      @keyframes fade-in {
         from {
           opacity: 0;
         }
@@ -97,27 +87,15 @@ export class QingOverlay extends LitElement {
   @property({ type: Boolean, reflect: true }) closeOnEsc = false;
 
   override render() {
-    const { open } = this;
     return html`
-      <div
-        style=${styleMap({
-          display: open ? 'flex' : 'none',
-        })}
-        class=${overlayBackClass}
-        part=${overlayBackClass}>
-        <dialog
-          class=${classMap({ [overlayClass]: true })}
-          part=${overlayClass}
-          @cancel=${this.handleCancel}>
-          <slot></slot>
-        </dialog>
-      </div>
+      <dialog part="dialog" @cancel=${this.handleCancel}>
+        <slot></slot>
+      </dialog>
     `;
   }
 
   override updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has(openProp)) {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!!changedProperties.get(openProp) !== this.open) {
         const dialogEl = this.shadowRoot?.querySelector('dialog') as HTMLDialogElement | null;
         if (this.open) {

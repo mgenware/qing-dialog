@@ -40,7 +40,7 @@ Overlay size is fully customizable. By default, height defaults to auto (fits co
 /** Example 1 **/
 /** 80% of screen width on medium or large screens */
 @media (min-width: 768px) {
-  qing-overlay::part(overlay) {
+  qing-overlay::part(dialog) {
     width: 80%;
   }
 }
@@ -48,7 +48,7 @@ Overlay size is fully customizable. By default, height defaults to auto (fits co
 /** Example 2 **/
 /** Auto width with min and max values on medium or large screens */
 @media (min-width: 768px) {
-  qing-overlay::part(overlay) {
+  qing-overlay::part(dialog) {
     width: auto;
     max-width: min(100vw, 1000px);
     min-width: 400px;
@@ -57,12 +57,12 @@ Overlay size is fully customizable. By default, height defaults to auto (fits co
 
 /** Example 3 **/
 /** Fullscreen dialog with margins **/
-qing-overlay::part(overlay) {
+qing-overlay::part(dialog) {
   width: calc(100vw - 1rem);
   height: calc(100vh - 1rem);
 }
 @media (min-width: 768px) {
-  qing-overlay::part(overlay) {
+  qing-overlay::part(dialog) {
     width: calc(100vw - 4rem);
     height: calc(100vh - 4rem);
   }
@@ -82,10 +82,9 @@ qing-overlay::part(overlay) {
 
 ### CSS Shadow Parts
 
-- `overlay-background` the background view of the overlay.
-- `overlay` the overlay itself.
+- `dialog` the internal `<dialog>` element.
 
 ### CSS Variables
 
-- `--overlay-bg-z-index` z-index of the overlay, defaults to `1000`. Note that this is the `z-index` of overlay background, not overlay content. Overlay content is rendered as `<dialog>` element, which is added to the top layer ([spec](https://fullscreen.spec.whatwg.org/#new-stacking-layer)).
+- `--overlay-backdrop-background` CSS background value of dialog backdrop.
 - `--overlay-animation-duration` background fade-in animation duration.

@@ -77,6 +77,13 @@ it('The internal <dialog> open attr should be in sync', async () => {
   expect(dialogEl?.getAttribute('open')).to.eq(null);
 });
 
+it('`<dialog>.open` set initially', async () => {
+  const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
+
+  const dialogEl = el.shadowRoot?.querySelector('dialog');
+  expect(dialogEl?.getAttribute('open')).to.eq('');
+});
+
 it('Disable the intrinsic <dialog> Esc behavior', async () => {
   const el = await fixture<QingOverlay>(html` <qing-overlay open><p>test</p></qing-overlay> `);
   await aTimeout();
