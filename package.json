@@ -29,8 +29,8 @@
     "dist/**/*.map"
   ],
   "peerDependencies": {
-    "lit": "^2.0.0",
-    "qing-button": "^8.2.1"
+    "lit": "^3.0.0",
+    "qing-button": "^9.0.1"
   },
   "devDependencies": {
     "@types/mocha": "^9.1.1",
@@ -44,10 +44,10 @@
     "eslint": "^8.16.0",
     "eslint-config-mgenware": "^0.8.0",
     "eslint-plugin-import": "^2.26.0",
-    "lit": "^2.3.0",
+    "lit": "^3.1.0",
     "mgenware-tsconfig-browser": "^14.0.0",
     "mocha": "^10.0.0",
-    "qing-button": "^8.2.6",
+    "qing-button": "^9.0.1",
     "qing-t": "^6.2.1",
     "source-map-support": "^0.5.21",
     "typescript": "^4.7.2"
