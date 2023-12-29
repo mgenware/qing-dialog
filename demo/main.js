@@ -74,7 +74,7 @@ export class ExampleApp extends LitElement {
         <h2>Layouts</h2>
         ${this.r('Width: 80%, Height: auto', 'layout-w-80')}
         ${this.r('Width: auto + min value, Height: auto', 'layout-auto-min-width')}
-        ${this.r('Fullscreen with margins', 'layout-full-margins')}
+        ${this.r('Fullscreen with margins', 'layout-full-margins')} ${this.rFullscreenEditor()}
         <h2>Events</h2>
         ${this.r('Handle events', 'handle-events', undefined, {
           open: () => alert('Opening'),
@@ -176,6 +176,23 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
     `;
   }
 
+  rFullscreenEditor() {
+    const id = 'fullscreen-editor';
+    return html`
+      <p>
+        <button @click=${() => this.openOverlay('fullscreen-editor')}>Fullscreen editor</button>
+      </p>
+      <qing-overlay id=${id}>
+        <div class="root">
+          <textarea></textarea>
+          <p style="text-align:center">
+            <button @click=${() => this.closeOverlay(id)}>OK</button>
+          </p>
+        </div>
+      </qing-overlay>
+    `;
+  }
+
   get mainElement() {
     return this.shadowRoot.getElementById('main');
   }
@@ -232,6 +249,26 @@ ExampleApp.styles = [
         width: calc(100vw - 4rem);
         height: calc(100vh - 4rem);
       }
+    }
+
+    qing-overlay#fullscreen-editor::part(dialog) {
+      width: calc(100vw - 1rem);
+      height: calc(100vh - 1rem);
+    }
+    @media (min-width: 768px) {
+      qing-overlay#fullscreen-editor::part(dialog) {
+        width: calc(100vw - 4rem);
+        height: calc(100vh - 4rem);
+      }
+    }
+    #fullscreen-editor .root {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+    #fullscreen-editor .root textarea {
+      flex: 1;
     }
 
     h2 {
