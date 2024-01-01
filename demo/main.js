@@ -77,8 +77,8 @@ export class ExampleApp extends LitElement {
         ${this.r('Fullscreen with margins', 'layout-full-margins')} ${this.rFullscreenEditor()}
         <h2>Events</h2>
         ${this.r('Handle events', 'handle-events', undefined, {
-          open: () => alert('Opening'),
-          close: () => alert('Closing'),
+          open: () => alert('overlay-open'),
+          close: () => alert('overlay-close'),
           escDown: () => {
             alert('Esc down');
             this.closeOverlay('handle-events');

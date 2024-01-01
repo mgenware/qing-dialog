@@ -117,7 +117,7 @@ export class QingOverlay extends LitElement {
 
         const eventName = this.open ? 'overlay-open' : 'overlay-close';
         // `setTimeout` ensures `updated` is finished first.
-        setTimeout(() => this.dispatchEvent(new CustomEvent(eventName)), 0);
+        setTimeout(() => this.dispatchEvent(new CustomEvent(eventName, { bubbles: true })), 0);
       }
     }
   }
