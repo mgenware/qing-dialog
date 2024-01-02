@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { html, css, LitElement } from 'lit';
 import { property, customElement } from 'lit/decorators.js';
 
@@ -99,7 +100,9 @@ export class QingOverlay extends LitElement {
       <dialog
         part="dialog"
         class=${this.qingMode ? 'qing-spinner' : ''}
-        @cancel=${this.handleCancel}>
+        @keydown=${this.handleKeyDown}
+        @cancel=${this.handleCancel}
+        @close=${this.handleClose}>
         <slot></slot>
       </dialog>
     `;
@@ -109,10 +112,14 @@ export class QingOverlay extends LitElement {
     if (changedProperties.has(openProp)) {
       if (!!changedProperties.get(openProp) !== this.open) {
         const dialogEl = this.shadowRoot?.querySelector('dialog') as HTMLDialogElement | null;
+        if (!dialogEl) {
+          console.error('dialog element not supported');
+          return;
+        }
         if (this.open) {
-          dialogEl?.showModal();
+          dialogEl.showModal();
         } else {
-          dialogEl?.close();
+          dialogEl.close();
         }
 
         const eventName = this.open ? 'overlay-open' : 'overlay-close';
@@ -122,15 +129,27 @@ export class QingOverlay extends LitElement {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  private handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      this.onClosing();
+    }
+  }
+
   private handleCancel(e: Event) {
     e.preventDefault();
+    this.onClosing();
+  }
+
+  private onClosing() {
     if (this.closeOnEsc) {
       this.open = false;
     } else {
       this.dispatchEvent(new CustomEvent('overlay-esc-down'));
     }
   }
+
+  private handleClose() {}
 }
 
 declare global {
