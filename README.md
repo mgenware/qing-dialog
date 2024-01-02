@@ -80,6 +80,7 @@ qing-overlay::part(dialog) {
 
 - `overlay-open`: fires when an overlay is opened.
 - `overlay-close`: fires when an overlay is closed.
+- `overlay-dismiss`: fires when an overlay is being dismissed (still visible).
 - `overlay-esc-down`: fires when ESC key is pressed.
 
 ### CSS Shadow Parts

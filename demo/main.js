@@ -79,6 +79,7 @@ export class ExampleApp extends LitElement {
         ${this.r('Handle events', 'handle-events', undefined, {
           open: () => alert('overlay-open'),
           close: () => alert('overlay-close'),
+          dismiss: () => alert('overlay-dismiss'),
           escDown: () => {
             alert('Esc down');
             this.closeOverlay('handle-events');
@@ -158,6 +159,7 @@ ${`${'2020 is coming. '.repeat(20)}\n`.repeat(500)}</pre
         ?closeOnEsc=${!events?.escDown}
         @overlay-open=${() => events?.open()}
         @overlay-close=${() => events?.close()}
+        @overlay-dismiss=${() => events?.dismiss()}
         @overlay-esc-down=${() => events?.escDown()}>
         ${content ?? html`<dynamic-content></dynamic-content>`}
         <p style="text-align:center">

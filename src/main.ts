@@ -102,7 +102,7 @@ export class QingOverlay extends LitElement {
         class=${this.qingMode ? 'qing-spinner' : ''}
         @keydown=${this.handleKeyDown}
         @cancel=${this.handleCancel}
-        @close=${this.handleClose}>
+        @close=${this.handleDialogClose}>
         <slot></slot>
       </dialog>
     `;
@@ -149,7 +149,9 @@ export class QingOverlay extends LitElement {
     }
   }
 
-  private handleClose() {}
+  private handleDialogClose() {
+    this.dispatchEvent(new CustomEvent('overlay-dismiss', { bubbles: true }));
+  }
 }
 
 declare global {
